@@ -11,7 +11,14 @@ namespace DevPortal
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["UserID"] != null)
+            {
+                lblLoginID.Text = Session["UserID"].ToString();
+            }
+            else if (Session["UserID"] is null)
+            {
+                Response.Redirect("/login.aspx");
+            }
         }
     }
 }
