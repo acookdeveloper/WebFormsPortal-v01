@@ -21,11 +21,22 @@ namespace DevPortal
         {
             string Email = uName.Text;
             string Password = pWord.Text;
+            string UserID = "";
 
             if (uName.Text != null & pWord.Text != null)
             {
-                Session["UserID"] = "1";
-                Response.Redirect("/");
+                UserID = Global.ReturnSQL("EXEC sp_UA_Login @Email = '" + uName.Text + "', @Password = '" + pWord.Text + "'");
+
+                if (UserID != "")
+                {
+                    Session["UserID"] = UserID;
+                    Response.Redirect("/");
+                }
+                else
+                {
+                    Response.Write("You FAIL!");
+                }
+                
             }
 
 
